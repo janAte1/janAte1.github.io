@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>fourier</title>
+    </head>
+    <body>
+        <p id="params">
+            <input type="button" value="start" onclick="start()" id="start">
+            <div id="numberinput">number:<input type="number" id="number" name="number" value=100 max="1000"></div>
+            
+            speed:<input type="number" id="speed" name="speed" value=0.1 step="0.001">
+        </p>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <canvas width="1000" height="1000" id="tlo"></canvas>
+        <script>
+            var Context = document.getElementById("tlo").getContext("2d")
+            var t = 0
+            function Vector2(x, y){
+                this.x = x
+                this.y = y
+            }
+
+            function add(a, b){
+                return new Vector2(a.x + b.x, a.y + b.y)
+            }
+            function a2v(a, p){
+                var sin = Math.sin(a * 2 * Math.PI)
+                var cos = Math.cos(a * 2 * Math.PI)
+                return new Vector2(p.x * cos - p.y * sin, p.x * sin + p.y * cos)
+            }
+            
+            function mul(a, b){
+                return new Vector2(a.x*b.x - a.y*b.y, a.x*b.y + b.x*a.y)
+            }
+            function lerp(a, b, d){
+                return new Vector2(a.x + d * (b.x - a.x), a.y + d * (b.y - a.y))
+            }
+            function evaluate(points, d){
+                //d+=2/8
+                d %= 1
+
+                var fl = Math.floor(d * points.length)
+                var dec = d * points.length - fl
+                return lerp(points[fl], points[(fl + 1) % points.length], dec)
+            }
+            function getValues(points, precision, samples){
+                var fin = []
+                for(i=-precision;i<=precision;i++){
+                    var value = new Vector2(0, 0)
+                    for(j=0;j<samples;j++){
+                        var modifiedVector = mul(evaluate(points, j/samples), a2v(-j/samples * (i), new Vector2(1, 0)))
+                        value.x += modifiedVector.x
+                        value.y += modifiedVector.y
+                        if(i==1){
+                            //console.log(modifiedVector)
+                        }
+                        //console.log(a2v(j/points.length * i, new Vector2(1, 0)))
+                    }
+                    value.x /= samples
+                    value.y /= samples
+                    //value.x = 0
+                    fin[i] = value
+                    
+                }
+                return fin
+            }
+            /*
+            var points = [
+            new Vector2(400, 0),
+            new Vector2(400, 400),
+            new Vector2(0, 400),
+            new Vector2(-20, 20),
+            new Vector2(-400, 0),
+            new Vector2(-400, -400),
+            new Vector2(0, -400),
+            new Vector2(-200, -20),
+            new Vector2(0, 0)
+            ]
+            */
+            points = [new Vector2(-432, -435),
+new Vector2(-432, -413),
+new Vector2(-434, -390),
+new Vector2(-435, -370),
+new Vector2(-435, -350),
+new Vector2(-432, -333),
+new Vector2(-427, -316),
+new Vector2(-419, -304),
+new Vector2(-402, -301),
+new Vector2(-392, -312),
+new Vector2(-389, -329),
+new Vector2(-386, -337),
+new Vector2(-386, -317),
+new Vector2(-381, -301),
+new Vector2(-371, -289),
+new Vector2(-356, -288),
+new Vector2(-347, -301),
+new Vector2(-341, -317),
+new Vector2(-339, -335),
+new Vector2(-339, -333),
+new Vector2(-339, -313),
+new Vector2(-340, -294),
+new Vector2(-337, -278),
+new Vector2(-318, -276),
+new Vector2(-303, -281),
+new Vector2(-294, -293),
+new Vector2(-288, -308),
+new Vector2(-283, -323),
+new Vector2(-278, -339),
+new Vector2(-275, -357),
+new Vector2(-273, -375),
+new Vector2(-271, -393),
+new Vector2(-270, -411),
+new Vector2(-273, -394),
+new Vector2(-276, -376),
+new Vector2(-278, -358),
+new Vector2(-280, -340),
+new Vector2(-280, -320),
+new Vector2(-280, -300),
+new Vector2(-280, -280),
+new Vector2(-274, -266),
+new Vector2(-256, -264),
+new Vector2(-242, -270),
+new Vector2(-235, -285),
+new Vector2(-232, -303),
+new Vector2(-236, -320),
+new Vector2(-249, -327),
+new Vector2(-267, -329),
+new Vector2(-278, -320),
+new Vector2(-279, -303),
+new Vector2(-278, -284),
+new Vector2(-271, -270),
+new Vector2(-253, -268),
+new Vector2(-237, -272),
+new Vector2(-226, -281),
+new Vector2(-214, -291),
+new Vector2(-204, -301),
+new Vector2(-196, -313),
+new Vector2(-187, -324),
+new Vector2(-181, -326),
+new Vector2(-186, -308),
+new Vector2(-188, -290),
+new Vector2(-187, -271),
+new Vector2(-176, -262),
+new Vector2(-157, -260),
+new Vector2(-137, -260),
+new Vector2(-121, -265),
+new Vector2(-111, -275),
+new Vector2(-103, -288),
+new Vector2(-100, -305),
+new Vector2(-107, -319),
+new Vector2(-122, -324),
+new Vector2(-135, -317),
+new Vector2(-138, -300),
+new Vector2(-134, -283),
+new Vector2(-124, -273),
+new Vector2(-112, -264),
+new Vector2(-97, -259),
+new Vector2(-80, -256),
+new Vector2(-61, -234),
+new Vector2(-52, -228),
+new Vector2(-36, -222),
+new Vector2(-21, -228),
+new Vector2(-10, -239),
+new Vector2(-2, -251),
+new Vector2(6, -266),
+new Vector2(13, -279),
+new Vector2(15, -272),
+new Vector2(15, -251),
+new Vector2(13, -231),
+new Vector2(11, -212),
+new Vector2(8, -194),
+new Vector2(6, -175),
+new Vector2(8, -193),
+new Vector2(11, -212),
+new Vector2(12, -231),
+new Vector2(14, -250),
+new Vector2(18, -266),
+new Vector2(27, -279),
+new Vector2(40, -274),
+new Vector2(44, -258),
+new Vector2(40, -242),
+new Vector2(28, -234),
+new Vector2(14, -236),
+new Vector2(32, -238),
+new Vector2(43, -247),
+new Vector2(54, -257),
+new Vector2(61, -270),
+new Vector2(66, -287),
+new Vector2(68, -308),
+new Vector2(69, -309),
+new Vector2(70, -290),
+new Vector2(69, -270),
+new Vector2(68, -253),
+new Vector2(77, -241),
+new Vector2(92, -236),
+new Vector2(107, -242),
+new Vector2(111, -258),
+new Vector2(113, -271),
+new Vector2(113, -251),
+new Vector2(116, -234),
+new Vector2(130, -239),
+new Vector2(137, -254),
+new Vector2(134, -271),
+new Vector2(118, -278),
+new Vector2(111, -265),
+new Vector2(109, -246),
+new Vector2(116, -233),
+new Vector2(130, -238),
+new Vector2(135, -253),
+new Vector2(139, -269),
+new Vector2(139, -281),
+new Vector2(138, -262),
+new Vector2(137, -242),
+new Vector2(152, -237),
+new Vector2(162, -248),
+new Vector2(171, -259),
+new Vector2(184, -267),
+new Vector2(184, -267),
+new Vector2(171, -260),
+new Vector2(167, -243),
+new Vector2(171, -227),
+new Vector2(188, -223),
+new Vector2(202, -229),
+new Vector2(211, -242),
+new Vector2(217, -256),
+new Vector2(222, -271),
+new Vector2(224, -290),
+new Vector2(226, -285),
+new Vector2(226, -265),
+new Vector2(225, -246),
+new Vector2(222, -229),
+new Vector2(226, -253),
+new Vector2(236, -259),
+new Vector2(245, -270),
+new Vector2(255, -281),
+new Vector2(267, -290),
+new Vector2(228, -256),
+new Vector2(229, -254),
+new Vector2(236, -241),
+new Vector2(246, -231),
+new Vector2(258, -222),
+new Vector2(268, -232),
+new Vector2(275, -246),
+new Vector2(283, -260),
+new Vector2(284, -243),
+new Vector2(282, -224),
+new Vector2(290, -212),
+new Vector2(305, -217),
+new Vector2(306, -220),
+new Vector2(322, -224),
+new Vector2(343, -225),
+new Vector2(361, -221),
+new Vector2(377, -210),
+new Vector2(389, -194),
+new Vector2(396, -181),
+new Vector2(402, -165),
+new Vector2(405, -148),
+new Vector2(405, -128),
+new Vector2(404, -108),
+new Vector2(396, -79),
+new Vector2(381, -54),
+new Vector2(356, -29),
+new Vector2(322, 1),
+new Vector2(270, 28),
+new Vector2(215, 45),
+new Vector2(162, 52),
+new Vector2(108, 59),
+new Vector2(61, 64),
+new Vector2(2, 64),
+new Vector2(-63, 59),
+new Vector2(-130, 53),
+new Vector2(-188, 50),
+new Vector2(-239, 42),
+new Vector2(-280, 29),
+new Vector2(-320, 14),
+new Vector2(-368, -6),
+new Vector2(-404, -24),
+new Vector2(-437, -43),
+new Vector2(-469, -61),
+new Vector2(-484, -76),
+new Vector2(-493, -91),
+new Vector2(-499, -114),
+new Vector2(-492, -292),
+new Vector2(-480, -302),
+new Vector2(-466, -311),
+new Vector2(-452, -317),
+new Vector2(-439, -324)
+]
+            /*
+            for(i=0;i<points.length;i++){
+                points[i].x = Math.random() * 800 - 400
+                points[i].y = Math.random() * 800 - 400
+            }
+            */
+            //console.log(values)
+            
+            var PensilPos = new Vector2(500, 500)
+            var PensilPos2 = new Vector2(500, 500)
+            function drawTo(pos){
+                Context.beginPath()
+                Context.moveTo(PensilPos.x, PensilPos.y)
+                Context.lineTo(pos.x, pos.y)
+                Context.stroke()
+                PensilPos = pos
+            }
+            function drawTo2(pos){
+                Context.beginPath()
+                Context.moveTo(PensilPos2.x, PensilPos2.y)
+                Context.lineTo(pos.x, pos.y)
+                Context.stroke()
+                PensilPos2 = pos
+            }
+            function drawPoint(pos, radius){
+                //Context.moveTo(pos.x, pos.y)
+                Context.beginPath()
+                Context.arc(pos.x, pos.y, radius, 0, 2 * Math.PI)
+                Context.fill()
+            }
+            function drawCircle(pos, radius){
+                //Context.moveTo(pos.x, pos.y)
+                Context.beginPath()
+                Context.arc(pos.x, pos.y, radius, 0, 2 * Math.PI)
+                Context.stroke()
+            }
+            var shape = []
+            //console.log(values)
+            Context.fillStyle = "#FF0000"
+            function calculate(prec){
+                return getValues(points, prec, 8000)
+
+            }
+            function start(){
+                var num = $("#number").val()
+                values = getValues(points, num, 8000)
+                var sizes = []
+                for (i=-values.length+1;i<values.length;i++){
+                    sizes[i] = Math.sqrt(values[i].x ** 2 + values[i].y ** 2)
+                }
+                document.getElementById("start").remove()
+                document.getElementById("number").max = num
+                setInterval(
+                function(){
+                    Context.clearRect(0,0,1000,1000)
+                    t += 0.01 * $("#speed").val()
+                    var pos = new Vector2(500, 500)
+                    var reallenght = values.length*2-1
+                    Context.lineWidth = 0.3
+                    Context.strokeStyle = "#0000FF"
+                    //console.log(num)
+                    for(i=0;i<reallenght - +num * 2 + +$("#number").val() * 2;i++){
+                        var currentvalue = Math.ceil(i/2) * (i%2==0 ? 1 : -1)
+                        Context.lineWidth = 1/Math.abs(currentvalue) + 0.3
+                        if (currentvalue == 0){Context.lineWidth = 1}
+                        pos = add(pos, a2v(t*(currentvalue), values[currentvalue]))
+                        ///*
+                        Context.strokeStyle = "#000000"
+                        Context.lineWidth /=2
+                        drawCircle(pos, sizes[Math.ceil((i+1)/2) * ((i+1)%2==0 ? 1 : -1)])
+                        Context.lineWidth *=2
+                        Context.strokeStyle = "#0000FF"
+                        //*/
+                        drawTo2(pos)
+                        
+                    }
+                    drawPoint(PensilPos2, 2)
+                    PensilPos2 = new Vector2(500,500)
+                    Context.lineWidth = 0.4
+                    Context.strokeStyle = "#000000"
+                    //drawTo(pos)
+                    shape.push(pos)
+                    if (t>1){
+                        shape.shift()
+                    }
+                    PensilPos = shape[0]
+                    Context.lineWidth = 0
+                    for(i=0; i<shape.length;i++){
+                        Context.lineWidth += 1/shape.length
+                        drawTo(shape[i])
+                    }
+                    Context.lineWidth = 1
+                    //drawTo(add(evaluate(points, t), new Vector2(250, 250)))
+                }, 
+            10)
+            }
+            function clear(){
+                shape= []
+                t = 0   
+            }
+            function distort(s){
+                for(i=0;i<values.length;i++){   
+                    values[i].x *= 1 + (Math.random() - 0.5) * s
+                    values[i].y *= 1 + (Math.random() - 0.5) * s
+                    values[-i].x *= 1 + (Math.random() - 0.5) * s
+                    values[-i].y *= 1 + (Math.random() - 0.5) * s
+                }
+            }
+            function shrink(s){
+                for(i=0;i<values.length;i++){   
+                    values[i].x /= s
+                    values[i].y /= s
+                    values[-i].x /= s
+                    values[-i].y /= s
+                }
+            }
+            //console.log(evaluate(points, 0.0))
+        </script>
+    </body>
+</html>
