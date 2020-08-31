@@ -9,34 +9,34 @@
     <body>
         <canvas height="500" width="500" id="tlo"></canvas>
         <p>
-            <input type="button" value="clear canvas" onclick="Context.fillRect(0, 0, 500, 500)">
-            <input type="button" value="remove particles" onclick="Particles = []">
+            <input type="button" value="wyczyść tło" onclick="Context.fillRect(0, 0, 500, 500)">
+            <input type="button" value="usuń cząsteczki" onclick="Particles = []">
         </p>
 
         <p>
             <input type="number" value="2000" min="0" id="Particles">
-            <input type="button" value="add particles" onclick="add()">
+            <input type="button" value="dodaj cząsteczki" onclick="add()">
         </p>
         <br>
 
         <p>
             <p>
-                Noise scale:<input type="number" id="NoiseScale" value="100" min="1">
+                Skala szumu:<input type="number" id="NoiseScale" value="100" min="1">
             </p>
             <p>
-                Noise change speed:<input type="number" id="NoiseSpeed" value="0.1">
+                Szybkość zmiany szumu:<input type="number" id="NoiseSpeed" value="0.1">
             </p>
             <p>
-                Noise detail:<input type="number" id="NoiseDetail" value="4" min="1" max="16">
+                "szorstkość"(ilość oktaw) szumu:<input type="number" id="NoiseDetail" value="4" min="1" max="16">
             </p>
         </p>
         <br>
         <p>
-            friction:<input type="number" id="friction" min="0" max="1" value="0.03" step="0.01">
-            force:<input type="number" id="force" min="0" value="0.5" step="0.05">
-            randomization:<input type="number" id="randomization" min="0" value="0.05" step="0.05">
+            tarcie:<input type="number" id="friction" min="0" max="1" value="0.03" step="0.01">
+            przyśpieszenie:<input type="number" id="force" min="0" value="0.5" step="0.05">
+            losowość:<input type="number" id="randomization" min="0" value="0.05" step="0.05">
         </p>
-            Opacity:<input type="number" value="0.05" min="0" max="1" step="0.001" id="Opacity">
+            gróbość śladu:<input type="number" value="0.05" min="0" max="1" step="0.001" id="Opacity">
         <script>
             var canvas = document.getElementById("tlo")
             var Context = canvas.getContext("2d")
