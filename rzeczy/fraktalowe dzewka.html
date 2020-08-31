@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>fractal trees</title>
+        <title>fraktalowe dzewka</title>
     </head>
     <body>
         <canvas width="700" height="700" id= "tlo"></canvas>
-        <p>angles:</p>
+        <p>kąty:</p>
         <input type="range" id="angle1" value= "0.785" min="-3.1415" max="3.1415" step="0.01">
         <input type="range" id="angle2" value= "0" min="-3.1415" max="3.1415" step="0.01">
         <input type="range" id="angle3" value= "-0.785" min="-3.1415" max="3.1415" step="0.01">
-        <p>decay:</p>
+        <p>zmniejszenie:</p>
         <input type="range" id="decay" value="1.3" min="1" max="2" step="0.01">
-        <!--
-            <p>Auto-Update<input type="checkbox" id="rt"></p>
-        -->
         <p></p>
-        <input type="button" onclick="update()" value="Update">
         iterations:
         <input type="number" id="iter" value="6">
         <p>
@@ -23,9 +19,7 @@
         </p>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script>
-            
             var Context = document.getElementById("tlo").getContext("2d")
-            //Context.fillRect(200, 200, 100, 100)
             var Turtle = {
                 "x" : 350,
                 "y" : 350,
@@ -51,26 +45,6 @@
 
             }
             var Iterations = 0
-            /*
-            function Draw(size, a1, a2, decay){
-                if (Iterations > +$("#iter").val()){
-                    
-                }else{
-                Iterations++
-                Turtle.fd(size)
-                Turtle.tl(a1)
-                //there
-                Draw(size/decay, a1, a2, decay)
-                Turtle.tr(a1 + a2)
-                //there
-                Draw(size/decay, a1, a2, decay)
-                Turtle.tl(a2)
-                Turtle.fd(-size)
-                Iterations--
-                }
-                
-            }
-            */
             function Draw(size, a1, a2, a3, decay){
                 if (Iterations > +$("#iter").val()){
                     
