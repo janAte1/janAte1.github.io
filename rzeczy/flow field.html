@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>flow field</title>
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        
+    </head>
+    <body>
+        <canvas height="500" width="500" id="tlo"></canvas>
+        <p>
+            <input type="button" value="clear canvas" onclick="Context.fillRect(0, 0, 500, 500)">
+            <input type="button" value="remove particles" onclick="Particles = []">
+        </p>
+
+        <p>
+            <input type="number" value="2000" min="0" id="Particles">
+            <input type="button" value="add particles" onclick="add()">
+        </p>
+        <br>
+
+        <p>
+            <p>
+                Noise scale:<input type="number" id="NoiseScale" value="100" min="1">
+            </p>
+            <p>
+                Noise change speed:<input type="number" id="NoiseSpeed" value="0.1">
+            </p>
+            <p>
+                Noise detail:<input type="number" id="NoiseDetail" value="4" min="1" max="16">
+            </p>
+        </p>
+        <br>
+        <p>
+            friction:<input type="number" id="friction" min="0" max="1" value="0.03" step="0.01">
+            force:<input type="number" id="force" min="0" value="0.5" step="0.05">
+            randomization:<input type="number" id="randomization" min="0" value="0.05" step="0.05">
+        </p>
+            Opacity:<input type="number" value="0.05" min="0" max="1" step="0.001" id="Opacity">
+        <script>
+            var canvas = document.getElementById("tlo")
+            var Context = canvas.getContext("2d")
+            var Input = {}
+            var GetInput = function(){
+                Input = {
+                    "Opacity" : +$("#Opacity").val(),
+                    "NoiseScale" : +$("#NoiseScale").val(),
+                    "NoiseSpeed" : +$("#NoiseSpeed").val(),
+                    "NoiseDetail" : +$("#NoiseDetail").val(),
+                    "friction" : +$("#friction").val(),
+                    "force" : +$("#force").val(),
+                    "randomization" : +$("#randomization").val()
+                }
+            }
+            var Particles = []
+            function particle(x, y){
+                    this.x = x
+                    this.y = y
+                    this.Vel = {
+                        x:0,
+                        y:0
+                    }
+                    this.AddForce = function(fx, fy){
+                        this.Vel.x += fx
+                        this.Vel.y += fy
+                    }
+                    this.SetVel = function(fx, fy){
+                        this.Vel.x = fx
+                        this.Vel.y = fy
+                    }
+                    this.move = function(){
+                        Context.beginPath()
+                        Context.moveTo(this.x, this.y)
+                        this.x += this.Vel.x
+                        this.y += this.Vel.y
+                        Context.lineTo(this.x, this.y)
+                        Context.stroke()
+                        this.x = (this.x + 500) % 500
+                        this.y = (this.y + 500) % 500
+                    }
+                    this.friction = function(f){
+                        this.Vel.x *= f
+                        this.Vel.y *= f
+                    }
+                }
+            function add(){
+                for(i=0;i<+$("#Particles").val();i++){
+                    Particles.push(new particle(Math.random() * 500, Math.random() * 500))
+                }
+            }
+            function setup(){
+                var t = 0
+                
+                //noiseDetail(1)
+                
+                var noiseScale = 100
+                function nois(x, y, z){
+                    return 2 * (noise(x/noiseScale, y/noiseScale, z) - 0.5)
+                }
+                //console.log("xd")
+                
+                for(i=0;i<2000;i++){
+                    Particles[i] = new particle(Math.random() * 500, Math.random() * 500)
+                }
+                var speed = 0.25
+                var inForce = 0.5
+                var noisespeed = 0.1
+                function field(x, y){
+                    return {"x":nois(x, y, t*noisespeed) * speed,"y": nois(x+10000, y+10000, t*noisespeed) * speed}
+                    y -= 250
+                    x -= 250
+                    var lenght = Math.sqrt(y*y+x*x)
+                    return{
+                        "x":y/lenght - x/lenght * inForce,
+                        "y":-x/lenght -  y/lenght * inForce * 2
+                    }
+                }
+                Context.fillRect(0, 0, 500, 500)
+                setInterval(function(){
+                    //Context.clearRect(0, 0, 500, 500)
+                    t+= 0.01
+                    GetInput()
+                    noisespeed = Input.NoiseSpeed
+                    noiseScale = Input.NoiseScale
+                    noiseDetail(Input.NoiseDetail)
+                    speed = Input.force
+                    Context.strokeStyle = "hsla(" + (3 * t + 0) + ", 100%, 50%, " + String(Input.Opacity) + ")"
+                    for(i=0;i<Particles.length;i++){
+                    var par = Particles[i]
+                    var force = field(par.x, par.y)
+                    par.AddForce(force.x * speed, force.y * speed)
+                    par.friction(1- 0.03)
+                    par.friction(1 + (Math.random() - 0.5) * Input.randomization)
+                    par.move()
+
+                }
+                }, 10)
+            }
+        </script>
+    </body>
+</html>
