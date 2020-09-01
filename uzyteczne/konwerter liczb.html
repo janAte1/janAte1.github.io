@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>konwerter liczb</title>
+    </head>
+    <body>
+        <p>
+            liczba w systemie dziesiętnym:<input type="number" name="dec" id="dec" value="0">
+        </p>
+        <p>
+            w innym:<input type="text" name="bin" id="bin" value="0">
+            w jakim?:<input type="number" min="2" step="1" max="36" id="sys" value="2">
+        </p>
+        <hr/>
+
+        <script>
+            sys = 2
+            decinput = document.getElementById('dec')
+            bininput = document.getElementById('bin')
+            
+            decinput.addEventListener('keyup', decupdate)
+            decinput.addEventListener('change', decupdate)
+            bininput.addEventListener('keyup', binupdate)
+            bininput.addEventListener('change', binupdate)
+            function decupdate(){
+                dec = +decinput.value
+                bininput.value = dec.toString(sys)
+            }
+            
+            function binupdate(){
+                bin = bininput.value
+                bininput.value
+                decinput.value = parseInt(bin, sys)
+                
+            }
+            setInterval(()=>{
+                sys = +document.getElementById('sys').value
+            }, 50)
+            document.getElementById('sys').addEventListener('change', decupdate)
+        </script>
+    </body>
+</html>
