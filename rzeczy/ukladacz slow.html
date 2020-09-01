@@ -2,5 +2,28 @@
 <html>
   <body>
     <script src = "https://antonionio06.github.io/zasoby/words.js"></script>
+    <script>
+      function check(word){
+        word = word.toLowerCase()
+        if (word.length != numleters){
+            return false
+        }
+        else{
+            wordleters = []
+            for (i=0;i<word.length;i++){
+               wordleters.push(word[i])
+            }
+            for (i=0;i<leters.length;i++){
+                l = leters[i]
+                ind = wordleters.indexOf(l)
+                if (ind == -1){
+                    return false
+            }
+            wordleters.splice(in d, 1)
+            } 
+            return (wordleters.length == 0)
+        }    
+    }
+    </script>
   </body>
 </html>
