@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>układacz słów</title>
+  </head>
+  <body id="body">
+    <input type="text" id="leters">
+    <hr/>
+    <div id="results">
+
+    </div>
+    <script src = "https://antonionio06.github.io/zasoby/words.js"></script>
+    <script>
+      var leters = ''
+      var numleters = 0
+      function check(word){
+        word = word.toLowerCase()
+        if (word.length != numleters){
+            return false
+        }
+        else{
+            wordleters = []
+            for (i=0;i<word.length;i++){
+               wordleters.push(word[i])
+            }
+            for (i=0;i<leters.length;i++){
+                l = leters[i]
+                ind = wordleters.indexOf(l)
+                if (ind == -1){
+                    return false
+            }
+            wordleters.splice(ind, 1)
+            } 
+            return (wordleters.length == 0)
+        }    
+    }
+    document.getElementById('leters').addEventListener("keyup", checkall)
+    function checkall(){
+      document.getElementById('results').innerHTML = ""
+      leters = document.getElementById('leters').value
+      numleters = leters.length
+      for (k=0;k<words.length;k++){
+        if (check(words[k])){
+          res = words[k].toLowerCase()
+          elem = document.createElement('p')
+          elem.innerText = res
+          document.getElementById('results').append(elem)
+          
+        }
+      }
+    }
+    </script>
+  </body>
+</html>
