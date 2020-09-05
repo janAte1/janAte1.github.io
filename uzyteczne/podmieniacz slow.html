@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>podmieniacz słów</title>
+    </head>
+    <body>
+        <input type="text" id="input">
+        ignoruj wielkość liter<input type="checkbox" id="ignore case">
+        
+        <div id="transforms">
+
+        </div>
+        <hr/>
+        <p id="output"></p>
+        <script>
+            var transforms = document.getElementById('transforms')
+            var numtransforms = 0
+            function addTransform(){
+                var index = numtransforms
+                transform = document.createElement('div')
+                transform.id = numtransforms
+                transform.appendChild(document.createElement('hr'))
+                content = document.createElement("p")
+                content.innerHTML = 'zmień <input type="text" id="from' + index +'"> na <input type="text" id="to' + index +'">'
+                transform.appendChild(content)
+                transforms.appendChild(transform)
+                numtransforms++
+                return transform
+            }
+            function gettransform(index){
+                return [document.getElementById('from' + index).value, document.getElementById('to' + index).value]
+            }
+            addTransform()
+            addTransform()
+            addTransform()
+            addTransform()
+            addTransform()
+            addTransform()
+            setInterval(() => {
+                inp = String(document.getElementById('input').value)
+                if(!!document.getElementById('ignore case').checked){
+                    inp = inp.toLowerCase()
+                }
+                for(i=0;i<numtransforms;i++){
+                    tr = gettransform(i)
+                    if(!!document.getElementById('ignore case').checked){
+                    tr[0] = tr[0].toLowerCase()
+                    tr[1] = tr[1].toLowerCase()
+                    }
+                    inp = inp.replaceAll(tr[0], tr[1])
+                }
+                document.getElementById('output').innerHTML = inp
+            }, 20);
+        </script>
+    </body>
+</html>
