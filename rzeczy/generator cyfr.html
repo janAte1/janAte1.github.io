@@ -45,7 +45,7 @@
                 step = 500/x
                 for (i=0;i<x;i++){
                     for (j=0;j<x;j++){
-                        val = pred[i*x+j] * 255
+                        val = pred[j*x+i] * 255
                         col = "rgb(" + val + ", " + val + ", " + val + ")"
                         Context.fillStyle = col
                         Context.fillRect(step * i, step * j, step, step)
