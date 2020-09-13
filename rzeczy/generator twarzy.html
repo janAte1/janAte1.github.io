@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>generator twarzy</title>
+    </head>
+    <body>
+        <canvas height="500" width="500" id="tlo"></canvas>
+        <p>
+             <input type="range" id="0", step="0.001" min="0" max="1">
+            <input type="range" id="1", step="0.001" min="0" max="1">
+            <input type="range" id="2", step="0.001" min="0" max="1">
+            <input type="range" id="3", step="0.001" min="0" max="1">
+        </p>
+       
+        <p>
+             <input type="range" id="4", step="0.001" min="0" max="1">
+            <input type="range" id="5", step="0.001" min="0" max="1">
+            <input type="range" id="6", step="0.001" min="0" max="1">
+            <input type="range" id="7", step="0.001" min="0" max="1">
+        </p>
+        <p>
+             <input type="range" id="8", step="0.001" min="0" max="1">
+            <input type="range" id="9", step="0.001" min="0" max="1">
+            <input type="range" id="a", step="0.001" min="0" max="1">
+            <input type="range" id="b", step="0.001" min="0" max="1">
+        </p>
+        <p>
+             <input type="range" id="c", step="0.001" min="0" max="1">
+            <input type="range" id="d", step="0.001" min="0" max="1">
+            <input type="range" id="e", step="0.001" min="0" max="1">
+            <input type="range" id="f", step="0.001" min="0" max="1">
+        </p>
+
+
+        <p>
+            <input type="range" id="10", step="0.001" min="0" max="1">
+           <input type="range" id="11", step="0.001" min="0" max="1">
+           <input type="range" id="12", step="0.001" min="0" max="1">
+           <input type="range" id="13", step="0.001" min="0" max="1">
+       </p>
+      
+       <p>
+            <input type="range" id="14", step="0.001" min="0" max="1">
+           <input type="range" id="15", step="0.001" min="0" max="1">
+           <input type="range" id="16", step="0.001" min="0" max="1">
+           <input type="range" id="17", step="0.001" min="0" max="1">
+       </p>
+       <p>
+            <input type="range" id="18", step="0.001" min="0" max="1">
+           <input type="range" id="19", step="0.001" min="0" max="1">
+           <input type="range" id="1a", step="0.001" min="0" max="1">
+           <input type="range" id="1b", step="0.001" min="0" max="1">
+       </p>
+       <p>
+           <input type="range" id="1c", step="0.001" min="0" max="1">
+           <input type="range" id="1d", step="0.001" min="0" max="1">
+           <input type="range" id="1e", step="0.001" min="0" max="1">
+           <input type="range" id="1f", step="0.001" min="0" max="1">
+       </p>
+       <p>
+        <input type="range" id="20", step="0.001" min="0" max="1">
+        <input type="range" id="21", step="0.001" min="0" max="1">
+        <input type="range" id="22", step="0.001" min="0" max="1">
+        <input type="range" id="23", step="0.001" min="0" max="1">
+        </p>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+        <script>
+
+            
+            //import * as tf from '@tensorflow/tfjs'
+            //var dir = 'localhost:8080/model.json'
+            //model = tf.loadLayersModel(dir)
+            //var data = {"format": "layers-model", "generatedBy": "keras v2.4.0", "convertedBy": "TensorFlow.js Converter v2.3.0", "modelTopology": {"keras_version": "2.4.0", "backend": "tensorflow", "model_config": {"class_name": "Sequential", "config": {"name": "sequential_19", "layers": [{"class_name": "InputLayer", "config": {"batch_input_shape": [null, 1, 16], "dtype": "float32", "sparse": false, "ragged": false, "name": "flatten_20_input"}}, {"class_name": "Flatten", "config": {"name": "flatten_20", "trainable": true, "batch_input_shape": [null, 1, 16], "dtype": "float32", "data_format": "channels_last"}}, {"class_name": "Dense", "config": {"name": "dense_81", "trainable": true, "dtype": "float32", "units": 64, "activation": "relu", "use_bias": true, "kernel_initializer": {"class_name": "GlorotUniform", "config": {"seed": null}}, "bias_initializer": {"class_name": "Zeros", "config": {}}, "kernel_regularizer": null, "bias_regularizer": null, "activity_regularizer": null, "kernel_constraint": null, "bias_constraint": null}}, {"class_name": "Dense", "config": {"name": "dense_82", "trainable": true, "dtype": "float32", "units": 1024, "activation": "relu", "use_bias": true, "kernel_initializer": {"class_name": "GlorotUniform", "config": {"seed": null}}, "bias_initializer": {"class_name": "Zeros", "config": {}}, "kernel_regularizer": null, "bias_regularizer": null, "activity_regularizer": null, "kernel_constraint": null, "bias_constraint": null}}, {"class_name": "Dense", "config": {"name": "dense_83", "trainable": true, "dtype": "float32", "units": 784, "activation": "sigmoid", "use_bias": true, "kernel_initializer": {"class_name": "GlorotUniform", "config": {"seed": null}}, "bias_initializer": {"class_name": "Zeros", "config": {}}, "kernel_regularizer": null, "bias_regularizer": null, "activity_regularizer": null, "kernel_constraint": null, "bias_constraint": null}}]}}}, "weightsManifest": [{"paths": ["group1-shard1of1.bin"], "weights": [{"name": "dense_81/kernel", "shape": [16, 64], "dtype": "float32"}, {"name": "dense_81/bias", "shape": [64], "dtype": "float32"}, {"name": "dense_82/kernel", "shape": [64, 1024], "dtype": "float32"}, {"name": "dense_82/bias", "shape": [1024], "dtype": "float32"}, {"name": "dense_83/kernel", "shape": [1024, 784], "dtype": "float32"}, {"name": "dense_83/bias", "shape": [784], "dtype": "float32"}]}]}
+            (async () => {
+                model = await tf.loadLayersModel("https://antonionio06.github.io/zasoby/facegen2/model.json")
+                console.log("xd")
+            })();
+            //prediction = model.predict(tf.ones([2, 1, 16]))
+            var canvas = document.getElementById("tlo")
+            var Context = canvas.getContext("2d")
+            function drawpred(pred){
+                x = 64
+                step = 500/x
+                for (i=0;i<x;i++){
+                    for (j=0;j<x;j++){
+
+                        r = (pred[j*3*x+i*3 + 0] + 1) / 2 * 255
+                        g = (pred[j*3*x+i*3 + 1] + 1) / 2 * 255
+                        b = (pred[j*3*x+i*3 + 2] + 1) / 2 * 255
+
+                        col = "rgb(" + r + ", " + g + ", " + b + ")"
+                        Context.fillStyle = col
+                        Context.fillRect(step * i, step * j, step, step)
+                    }
+                }
+            }
+            //drawpred(prediction)
+            input = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1,1,1,1]
+            setInterval(function() {
+                input[0] = +document.getElementById("0").value*4-2
+                input[1] = +document.getElementById("1").value*4-2
+                input[2] = +document.getElementById("2").value*4-2
+                input[3] = +document.getElementById("3").value*4-2
+                input[4] = +document.getElementById("4").value*4-2
+                input[5] = +document.getElementById("5").value*4-2
+                input[6] = +document.getElementById("6").value*4-2
+                input[7] = +document.getElementById("7").value*4-2
+                input[8] = +document.getElementById("8").value*4-2
+                input[9] = +document.getElementById("9").value*4-2
+                input[10] = +document.getElementById("a").value*4-2
+                input[11] = +document.getElementById("b").value*4-2
+                input[12] = +document.getElementById("c").value*4-2
+                input[13] = +document.getElementById("d").value*4-2
+                input[14] = +document.getElementById("e").value*4-2
+                input[15] = +document.getElementById("f").value*4-2
+
+                input[16] = +document.getElementById("10").value*4-2
+                input[17] = +document.getElementById("11").value*4-2
+                input[18] = +document.getElementById("12").value*4-2
+                input[19] = +document.getElementById("13").value*4-2
+                input[20] = +document.getElementById("14").value*4-2
+                input[21] = +document.getElementById("15").value*4-2
+                input[22] = +document.getElementById("16").value*4-2
+                input[23] = +document.getElementById("17").value*4-2
+                input[24] = +document.getElementById("18").value*4-2
+                input[25] = +document.getElementById("19").value*4-2
+                input[26] = +document.getElementById("1a").value*4-2
+                input[27] = +document.getElementById("1b").value*4-2
+                input[28] = +document.getElementById("1c").value*4-2
+                input[29] = +document.getElementById("1d").value*4-2
+                input[30] = +document.getElementById("1e").value*4-2
+                input[31] = +document.getElementById("1f").value*4-2
+
+                input[32] = +document.getElementById("20").value*4-2
+                input[33] = +document.getElementById("21").value*4-2
+                input[34] = +document.getElementById("22").value*4-2
+                input[35] = +document.getElementById("23").value*4-2
+                for (i=0;i<36;i++){
+                    input[i]*=2
+                }
+                tensor = tf.tensor2d([input])
+                prediction = model.predict(tensor).dataSync()
+                //console.log(prediction.length)
+                drawpred(prediction)
+            }, 100)
+        </script>
+    </body>
+</html>
