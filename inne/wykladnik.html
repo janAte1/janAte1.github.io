@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        
+        <p>e<sup>x</sup> można wyliczyć zakładając, że a=1 i przez jedną jednostkę czasu przesówać a z prędkością a*x. Po zakończeniu procedury a będzie równe e<sup>x</sup></p>
+        <p>można to wyliczyć numerycznie równaniem (1+x/n)<sup>n</sup>. Przybliżenie będzie dokładniejsze, im większe będzie n.</p>
+        <p>W skrócie wynika to z tego, że pochodna z wyrażenia e<sup>t*x</sup> wzgędem zmiennej t jest równa x*(samo to wyrażenie). Dzięki temu możemy wyliczyć e<sup>x</sup> algorytmem z pierwszej linijki.</p>
+        <p>Dogłębie jest to wyjaśnione w tym filmie:</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/v0YEaeIClKY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p>Tak wyglądałoby to dla x=1. a ląduje na e<sup>1</sup> czyli mniej więcej 2.718</p>
+        <img src="1+0i.gif">
+        <p>A tak dla x=1+1i, Tutaj a ląduje na e<sup>1+1i</sup>, czyli 1.4687+2.2874i</p>
+        <img src="1.0+1.0i.gif">
+        <p>jeśli część rzeczywista x jest ujemna e<sup>x</sup> będzie zbliżać się do 0, tutaj przykład dla x= -2+4i</p>
+        <img src="-2.0+4.0i.gif">
+        <p>W tym przykładzie widać również, że kąt pomiędzy e<sup>x</sup> a osią liczb rzeczywistych jest równy (w radiansach) częśći urojonej x</p>
+        <p>Można z tego wywnioskować, że jeśli część urojona liczby jest równa π, e<sup>x</sup> będzie rzeczywistą liczbą ujemną. Stąd jedno z piękniejszych równać w matematyce: e<sup>πi</sup>=-1</p>
+        <img src="0.0+3.14i.gif">
+        <h3>Wiele logarytmów</h3>
+        <p>Wiedząc, że część urojona x odpowiada bezpośrednio kątowi pomiędzy e<sup>x</sup> a osią liczb rzeczywistych, można dojść do tego, że dodanie dowolnej wielokrotności 2πi do x nie powinno zmienić wartości e<sup>x</sup></p>
+        <p>oto wizualizacja e<sup>x</sup> dla kolejno x=ln(5), x=ln(5)+2πi i x=ln(5)+4πi</p>
+        <img src="1.61+0.0i.gif" width="250">
+        <img src="1.61+6.28i.gif" width="250">
+        <img src="1.61+12.57i.gif" width="250">
+        <h3>Obliczanie potęg</h3>
+        <p>Pozwalaliśmy punktowi a przemieszczać się jedną jednostkę czasu. Co stałoby się gdyby punkt przemieszczał się 2 jednostki czasu?</p>
+        <p>Tutaj przykład dla x=ln(-2+1j)</p>
+        <img src="0.8+2.68i.gif">
+        <p>Po 2 jednostkach czasu a ląduje na (-2+1i)<sup>2</sup>, czyli 3-4i. Można zauważyć też, że w połowie drogi mija samo -2+1i (zaznaczone na zielono) i w 1/4 drogi mija (-2+1i)<sup>1/2</sup>, czyli pierwiastek kwadratowy z -2+1i (zaznaczone na żółto)</p>
+        <p>Zwiększenie czasu przesówania się punktu a jest równoznaczne ze zwiększeniem prędkości, czyli danie 2 jednostek czasu na przesówanie się punktu a jest równoznaczne z pomnożeniem x przez 2</p>
+        <img src="1.61+5.36i.gif">
+        <p>Gdy rozważymy jedną z zasad potęg: e<sup>bx</sup>=(e<sup>x</sup>)<sup>b</sup> można zrozumieć, czemu pomnożenie x przez 2 powoduje podniesienie wyniku do potęgi 2</p>
+        <p>W tym wypadku wygląda to tak: e<sup>2*ln(-2+1i)</sup>=(e<sup>ln(-2+1i)</sup>)<sup>2</sup>=(-2+1i)<sup>2</sup>=3-4i</p>
+        <h4>oznacza to też, że można tą metodą znajdować niecałkowite potęgi liczb</h4>
+        <p>Rozważmy ponownie przypadek z x=ln(5), x=ln(5)+2πi i x=ln(5)+4πi. Pomnóżmy wszystkie te liczby przez 0.5, co powinno podnieść 5 (e<sup>x</sup>) do potęgi 0.5</p>
+        <img src="0.8+0.0i.gif" width="250">
+        <img src="0.8+3.14i.gif" width="250">
+        <img src="0.8+6.28i.gif" width="250">
+        <p>Dostajemy 2 różne wyniki, z czego pierwszy się powtarza: 2.23 i -2.23 obie te liczby podniesione do potęgi 2 dadzą 5. Gdyby do x przed pomnożeniem przez 0.5 dodać inne wielokrotności 2πi wynik zawsze byłby jedną z tych liczb</p>
+        <p>Działałoby to również gdyby zamiast 0.5 jako wykładnika użyć np. 1/69. Wtedy otrzymalbyśmy 69 różnych wyników, w zależności od wybranej wielokrotnośi 2πi. Wszystkie z nich podniesione do potęgi 69 dałyby 5</p>
+        <h3>Jeszcze dziwniejsze potęgi</h3>
+        <p>Jeśli można tą metodą 5 podnieść do potęgi 0.5 nic nie stoi na przeszkodzie, by zamiast tego jako wykładnika użyć i</p>
+        <p>tutaj również trzeba mieć na uwadze, że do wykładnika można dodać wielokrotność 2πi</p>
+        <p>Tak wygląda wizualizacja kolejno e<sup>(ln(5)-2πi)*i</sup>, e<sup>(ln(5))*i</sup> i e<sup>(ln(5)+2πi)*i</sup></p>
+        <img src="6.28+1.61i.gif" width="250">
+        <img src="0.0+1.61i.gif" width="250">
+        <img src="-6.28+1.61i.gif" width="250">
+        <p>Dla różnych wielokrotności 2πi otrzymujemy różne wyniki. Jeden jest bliski zeru, drógi utrzymał się na kole jednostkowym i pzebył ln(5) radiansów a trzeci eksplodował. Dla innych wielokrotności 2πi wynik albo jest jeszcze bliżej zera albo eksploduje jeszcze bardziej. Jeden wynik nie pokrywa się z drugim, więc 5<sup>i</sup> ma nieskończenie wiele rozwiązań</p>
+        <p>Pomnożenie x przez i ma efekt obrócenia kierunku przesuwania punktu a o 90°. Stąd prędkość która normalnie kierowałaby po osi liczbowej wprawiła po pomnożeniu przez i punkt a w ruch kołowy (rysunek 2)</p>
+        <p>Na rysunku 1 prędkość punktu a byłaby równa a * (ln(5)-2πi), pomnożona przez i jednak stała się a*(2π+ln(5)i). Wysoka część rzeczywista wyrażenia spowodowała, że wynik "eksplodował".
+            Odwrotna sytułacja jest natomiast na rysunku 3. Tam prędkość wynosiłaby a * (ln(5)+2πi). Pomnożenie jej przez i zmieniło ją w a * (-2π+ln(5)i). Tutaj ujemna część rzeczywista prędkości zbliżyła wynik bardzo blisko 0
+        </p>
+        <p>Na zakończenie dodam, że a może być wektorem a X macierzą. Gdyby przesówać wektor a przez jedną jednostkę czasu z prędkością X*a, gdzie X jest macierzą, otrzymalibyśmy taki sam wynik, co gdybyśmy wykonali mnożenie e<sup>X</sup>*a Gdzie X będące macierzą jest wykładnikiem, ale tego nie chciało mi się animować.</p>
+        <p>Matematyka jest dziwna</p>
+    </body>
+</html>
