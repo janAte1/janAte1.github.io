@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>generator cyfr</title>
+        <meta charset="UTF-8">
     </head>
     <body>
         <canvas height="500" width="500" id="tlo"></canvas>
@@ -36,7 +37,7 @@
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
         <script>
             (async () => {
-                model = await tf.loadLayersModel("https://antonionio06.github.io/zasoby/model.json")
+                model = await tf.loadLayersModel("../zasoby/model.json")
             })();
             var canvas = document.getElementById("tlo")
             var Context = canvas.getContext("2d")
